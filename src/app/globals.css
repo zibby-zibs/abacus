@@ -197,27 +197,27 @@
 
   --animate-landing-marquee: landing-marquee 24s linear infinite;
   --animate-landing-scroll-pulse: landing-scroll-pulse 2s ease-in-out infinite;
-}
 
-@keyframes landing-marquee {
-  from {
-    transform: translateX(0);
+  @keyframes landing-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
-  to {
-    transform: translateX(-50%);
-  }
-}
 
-@keyframes landing-scroll-pulse {
-  0%,
-  100% {
-    opacity: 0.4;
-    transform: scaleY(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleY(1.15);
-    transform-origin: top;
+  @keyframes landing-scroll-pulse {
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scaleY(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleY(1.15);
+      transform-origin: top;
+    }
   }
 }
 
