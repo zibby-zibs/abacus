@@ -2,6 +2,7 @@ import { HeroBeadGrid } from "@/components/landing/HeroBeadGrid";
 import { SendIcon } from "@/components/landing/SendIcon";
 import { WHATSAPP_URL } from "@/components/landing/constants";
 import { cn } from "@/lib/utils";
+import ConversationalCard from "./conversational-card";
 
 const serif =
 	"font-[family-name:var(--font-dm-serif-display),ui-serif,Georgia,serif]";
@@ -18,6 +19,9 @@ export function HeroSection() {
 				aria-hidden
 			/>
 			<HeroBeadGrid />
+			<div className="absolute top-0 right-0 flex h-full w-[55%] items-center justify-center opacity-[0.95]">
+				<ConversationalCard />
+			</div>
 			{/* <div className="absolute top-9 left-[clamp(1.25rem,4vw,3.25rem)] font-mono text-[11px] font-medium tracking-[0.14em] text-neutral-500 uppercase dark:text-foreground-muted">
         Abacus — 2026
       </div> */}
