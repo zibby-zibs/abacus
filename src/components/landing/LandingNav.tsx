@@ -27,7 +27,7 @@ function ThemeToggle() {
           type="button"
           onClick={() => setMode(value)}
           className={cn(
-            "rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-wide transition-colors",
+            "rounded-full px-2 py-1 text-[10px] font-semibold tracking-wide transition-colors sm:px-2.5 sm:text-[11px]",
             mode === value
               ? "bg-forest-800 text-offwhite dark:bg-gold-500 dark:text-forest-900"
               : "text-neutral-600 hover:text-forest-900 dark:text-foreground-muted dark:hover:text-foreground"
@@ -53,27 +53,28 @@ export function LandingNav() {
   return (
     <nav
       className={cn(
-        "fixed top-0 right-0 left-0 z-[500] flex items-center justify-between px-[clamp(1.25rem,4vw,3.25rem)] pt-7 pb-7 transition-[padding,background-color] duration-300 ease-out",
+        "fixed top-0 right-0 left-0 z-[500] flex min-h-0 items-center justify-between gap-3 px-[clamp(1rem,4vw,3.25rem)] pt-[max(0.75rem,env(safe-area-inset-top))] pb-4 transition-[padding,background-color] duration-300 ease-out sm:pt-7 sm:pb-7",
         compact &&
-          "bg-offwhite/90 py-[18px] backdrop-blur-xl dark:bg-background/85"
+          "bg-offwhite/90 py-3 backdrop-blur-xl sm:py-[18px] dark:bg-background/85"
       )}
       aria-label="Primary"
     >
       <Link
         href="/"
-        className="flex cursor-pointer items-center gap-2.5 text-forest-900 dark:text-offwhite"
+        className="flex min-w-0 shrink cursor-pointer items-center gap-2 text-forest-900 sm:gap-2.5 dark:text-offwhite"
       >
         <AbacusLogoInner variant="nav" />
       </Link>
-      <div className="flex shrink-0 items-center gap-3 sm:gap-4">
+      <div className="flex min-w-0 shrink items-center justify-end gap-2 sm:gap-3 md:gap-4">
         <ThemeToggle />
         <a
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="whitespace-nowrap rounded-full border border-primary-border bg-primary-muted px-5 py-2.5 text-[13px] font-semibold text-gold-500 transition-colors hover:bg-gold-500 hover:text-forest-900 dark:border-gold-500/25 dark:bg-gold-500/10"
+          className="rounded-full border border-primary-border bg-primary-muted px-3 py-2 text-center text-[12px] font-semibold text-gold-500 transition-colors hover:bg-gold-500 hover:text-forest-900 sm:px-5 sm:py-2.5 sm:text-[13px] dark:border-gold-500/25 dark:bg-gold-500/10"
         >
-          Start on WhatsApp
+          <span className="sm:hidden">WhatsApp</span>
+          <span className="hidden sm:inline">Start on WhatsApp</span>
         </a>
       </div>
     </nav>

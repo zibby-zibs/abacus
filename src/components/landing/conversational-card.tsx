@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const ConversationalCard = (props: Props) => {
+const ConversationalCard = () => {
 	return (
 		<div>
 			<div className="flex flex-wrap gap-4 items-start">
