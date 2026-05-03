@@ -1,9 +1,6 @@
 import { Reveal } from "@/components/landing/Reveal";
 import { cn } from "@/lib/utils";
 
-const serif =
-	"font-[family-name:var(--font-dm-serif-display),ui-serif,Georgia,serif]";
-
 type Feature = {
 	num: string;
 	title: string;
@@ -60,7 +57,7 @@ export function FeaturesSection() {
 			<div className="mx-auto mb-16 flex max-w-container flex-wrap items-end justify-between gap-6 border-b border-neutral-300/80 pb-10 dark:border-white/10">
 				<h2
 					className={cn(
-						serif,
+						"font-serif",
 						"max-w-[500px] text-[clamp(2rem,3vw,3.25rem)] leading-tight font-normal tracking-[-0.025em] text-forest-900 dark:text-offwhite",
 					)}
 				>
@@ -94,8 +91,7 @@ export function FeaturesSection() {
 							</span>
 							<div
 								className={cn(
-									serif,
-									"text-[22px] leading-snug font-normal tracking-[-0.01em] text-forest-900 dark:text-offwhite",
+									"text-[22px] font-serif leading-snug font-normal tracking-[-0.01em] text-forest-900 dark:text-offwhite",
 								)}
 							>
 								{f.title}

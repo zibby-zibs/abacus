@@ -8,6 +8,7 @@ import { LandingNav } from "@/components/landing/LandingNav";
 import { LandingThemeProvider } from "@/components/landing/LandingThemeProvider";
 import { MarqueeStrip } from "@/components/landing/MarqueeStrip";
 import { NumbersSection } from "@/components/landing/NumbersSection";
+import { PricingSection } from "@/components/landing/PricingSection";
 
 export function LandingPage() {
   return (
@@ -24,6 +25,7 @@ export function LandingPage() {
         <FeaturesSection />
         <ChatDemoSection />
         <NumbersSection />
+        <PricingSection />
         <FinalCtaSection />
         <LandingFooter />
       </div>

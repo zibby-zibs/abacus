@@ -4,9 +4,6 @@ import { WHATSAPP_URL } from "@/components/landing/constants";
 import { cn } from "@/lib/utils";
 import ConversationalCard from "./conversational-card";
 
-const serif =
-	"font-[family-name:var(--font-dm-serif-display),ui-serif,Georgia,serif]";
-
 /** Clears fixed `LandingNav` (~5.5–6.5rem) + safe area. */
 const heroTopPad =
 	"pt-[max(1.25rem,calc(env(safe-area-inset-top)+6.25rem))] lg:pt-[max(1.5rem,calc(env(safe-area-inset-top)+6.75rem))]";
@@ -29,7 +26,7 @@ export function HeroSection() {
 			/>
 			<HeroBeadGrid variant="section" />
 
-			<div className="relative z-10 mx-auto flex w-full max-w-container flex-col py-4 sm:py-6 lg:flex-row lg:items-start lg:gap-x-10 lg:py-8 xl:gap-x-14">
+			<div className="relative z-10 mx-auto flex w-full max-w-container flex-col py-4 sm:py-6 lg:flex-row lg:items-center lg:gap-x-10 lg:py-8 xl:gap-x-14">
 				<div className="min-w-0 flex-1">
 					<p className="mb-5 flex items-center gap-2.5 text-[11px] font-semibold tracking-[0.16em] text-gold-600 uppercase opacity-80 sm:mb-7 dark:text-gold-500">
 						<span className="h-px w-7 shrink-0 bg-gold-500/60" />
@@ -37,8 +34,7 @@ export function HeroSection() {
 					</p>
 					<h1
 						className={cn(
-							serif,
-							"max-w-[12ch] text-[clamp(2.375rem,1.25rem+5.5vw,9.25rem)] leading-[0.92] font-normal tracking-[-0.035em] text-balance text-forest-900 lg:max-w-none dark:text-offwhite",
+							"max-w-[12ch] font-serif text-[clamp(2.375rem,1.25rem+5.5vw,9.25rem)] leading-[0.92] font-semibold tracking-[-0.035em] text-balance text-forest-900 lg:max-w-none dark:text-offwhite",
 						)}
 					>
 						Know
@@ -54,7 +50,8 @@ export function HeroSection() {
 							<strong className="font-medium text-forest-900 dark:text-foreground/90">
 								Your expenses, budgets, and debts
 							</strong>{" "}
-							— tracked entirely inside WhatsApp. No app. No dashboard. Just talk.
+							— tracked entirely inside WhatsApp. No app. No dashboard. Just
+							talk.
 						</p>
 						<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-5">
 							<a
