@@ -1,6 +1,7 @@
 import { ChatDemoSection } from "@/components/landing/ChatDemoSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { FinalCtaSection } from "@/components/landing/FinalCtaSection";
+import { GamifiedOnboardingModal } from "@/components/landing/GamifiedOnboardingModal";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
@@ -18,6 +19,7 @@ export function LandingPage() {
           aria-hidden
           className="pointer-events-none fixed inset-0 z-[9999] bg-landing-grain opacity-[0.55] dark:opacity-100"
         />
+        <GamifiedOnboardingModal />
         <LandingNav />
         <HeroSection />
         <MarqueeStrip />
