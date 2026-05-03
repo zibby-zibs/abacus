@@ -40,11 +40,6 @@ const heavyGets: [string, string][] = [
 	["Priority support", "WhatsApp within 2 hours"],
 ];
 
-const annualRows: [string, string, string, string, string][] = [
-	["Light", "₦500", "₦5,000", "17%", "₦417"],
-	["Heavy", "₦2,000", "₦20,000", "17%", "₦1,667"],
-];
-
 function FeatureTable({ rows }: { rows: [string, string][] }) {
 	return (
 		<div className="mt-1 w-full border-t border-neutral-200/90 pt-3 dark:border-white/10">
@@ -117,7 +112,7 @@ export function PricingSection() {
 								<CardTitle>Light</CardTitle>
 								<CardDescription>
 									<span className="font-mono text-[13px] font-medium text-forest-900 tabular-nums dark:text-offwhite">
-										₦500
+										₦850
 									</span>
 									<span className="text-neutral-600 dark:text-offwhite/45">
 										{" "}
@@ -142,7 +137,7 @@ export function PricingSection() {
 								<CardTitle>Heavy / power</CardTitle>
 								<CardDescription>
 									<span className="font-mono text-[13px] font-medium text-forest-900 tabular-nums dark:text-offwhite">
-										₦2,500
+										₦3,500
 									</span>
 									<span className="text-neutral-600 dark:text-offwhite/45">
 										{" "}
