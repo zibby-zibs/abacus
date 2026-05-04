@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <defs>
+    
+  </defs>
+  
+  <rect width="280" height="64" rx="8" fill="#050a06"></rect>
+  
+  <rect x="12" y="6" width="2.5" height="52" rx="1.25" fill="#f5c842" opacity="0.22"></rect>
+  
+  <rect x="5" y="16" width="17" height="11" rx="5.5" fill="#f5c842"></rect>
+  
+  <rect x="40" y="6" width="2.5" height="52" rx="1.25" fill="#f5c842" opacity="0.22"></rect>
+  
+  <rect x="33" y="38" width="17" height="11" rx="5.5" fill="#f5c842"></rect>
+  
+  <text x="72" y="43" font-family="&#39;Cormorant Garamond&#39;, Cormorant, Georgia, serif" font-size="28" font-weight="300" fill="#f0ebe3" letter-spacing="4">ABAKUS</text>
+</svg>

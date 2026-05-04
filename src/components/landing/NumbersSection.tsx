@@ -6,7 +6,7 @@ const stats = [
 	{
 		value: (
 			<>
-				2,400<span className="text-gold-600 dark:text-gold-500">+</span>
+				100<span className="text-gold-600 dark:text-gold-500">+</span>
 			</>
 		),
 		label: "people already tracking their money on WhatsApp",
