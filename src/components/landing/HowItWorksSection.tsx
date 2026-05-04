@@ -8,7 +8,7 @@ const steps = [
 	{
 		n: "01",
 		title: "Open WhatsApp",
-		desc: "Find Abacus and say hi. Takes 30 seconds to set up — no form, no email, no download. Just a conversation.",
+		desc: "Find Abakus and say hi. Takes 30 seconds to set up — no form, no email, no download. Just a conversation.",
 	},
 	{
 		n: "02",

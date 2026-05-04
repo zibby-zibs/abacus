@@ -27,7 +27,7 @@ export function LandingFooter() {
 				</a>
 			</div>
 			<span className="text-xs text-neutral-500 dark:text-foreground-muted/30">
-				© {new Date().getFullYear()} Abacus. All rights reserved.
+				© {new Date().getFullYear()} Abakus. All rights reserved.
 			</span>
 		</footer>
 	);

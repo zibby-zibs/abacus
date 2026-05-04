@@ -44,7 +44,7 @@ const features: Feature[] = [
 	{
 		num: "06",
 		title: "Lives in WhatsApp",
-		desc: "No app to download. No dashboard to log into. No new habit to form. WhatsApp is already open — that's where Abacus lives.",
+		desc: "No app to download. No dashboard to log into. No new habit to form. WhatsApp is already open — that's where Abakus lives.",
 		wide: true,
 		tag: "The whole point",
 		forestTint: true,

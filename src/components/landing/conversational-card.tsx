@@ -10,7 +10,7 @@ const ConversationalCard = () => {
 							A
 						</div>
 						<div>
-							<div className="text-[12px] font-semibold text-white">Abacus</div>
+							<div className="text-[12px] font-semibold text-white">Abakus</div>
 							<div className="text-[10px] text-white/40">● online</div>
 						</div>
 					</div>

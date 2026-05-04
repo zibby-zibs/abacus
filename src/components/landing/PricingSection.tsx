@@ -1,3 +1,4 @@
+import { PremiumCTAButton } from "@/components/landing/PremiumOnboardingModal";
 import { Reveal } from "@/components/landing/Reveal";
 import {
 	Card,
@@ -126,6 +127,11 @@ export function PricingSection() {
 							</CardHeader>
 							<CardContent>
 								<FeatureTable rows={lightGets} />
+								<PremiumCTAButton
+									planId="light"
+									planName="Light"
+									planPrice="₦850/month"
+								/>
 							</CardContent>
 						</Card>
 					</Reveal>
@@ -151,6 +157,11 @@ export function PricingSection() {
 							</CardHeader>
 							<CardContent>
 								<FeatureTable rows={heavyGets} />
+								<PremiumCTAButton
+									planId="heavy"
+									planName="Heavy"
+									planPrice="₦3,500/month"
+								/>
 							</CardContent>
 						</Card>
 					</Reveal>

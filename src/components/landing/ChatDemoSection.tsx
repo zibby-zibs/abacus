@@ -36,7 +36,7 @@ export function ChatDemoSection() {
 					</h2>
 					<p className="text-base font-light leading-relaxed text-neutral-600 dark:text-foreground-muted">
 						&quot;5k on food&quot;, &quot;okada 800&quot;, &quot;emeka owes me
-						15k&quot; — Abacus knows what you mean. Speak naturally an you're
+						15k&quot; — Abakus knows what you mean. Speak naturally an you're
 						good to go. No configuration, no categories to select, no dropdowns.
 					</p>
 				</div>
@@ -53,7 +53,7 @@ export function ChatDemoSection() {
 							</div>
 							<div>
 								<div className="text-sm font-semibold text-forest-900 dark:text-offwhite">
-									Abacus
+									Abakus
 								</div>
 								<div className="text-[11px] text-neutral-600 dark:text-white/45">
 									<span className="mr-1.5 inline-block size-1.5 translate-y-px rounded-full bg-whatsapp align-middle" />

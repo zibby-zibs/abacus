@@ -37,7 +37,7 @@ const dmSerifDisplay = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-	title: "Abacus",
+	title: "Abakus",
 	description: "WhatsApp-native finance — know your money.",
 };
 
