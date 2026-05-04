@@ -36,8 +36,8 @@ export function ChatDemoSection() {
 					</h2>
 					<p className="text-base font-light leading-relaxed text-neutral-600 dark:text-foreground-muted">
 						&quot;5k on food&quot;, &quot;okada 800&quot;, &quot;emeka owes me
-						15k&quot; — Abacus knows what you mean. Nigerian context built in.
-						No configuration, no categories to select, no dropdowns.
+						15k&quot; — Abacus knows what you mean. Speak naturally an you're
+						good to go. No configuration, no categories to select, no dropdowns.
 					</p>
 				</div>
 				<Reveal>

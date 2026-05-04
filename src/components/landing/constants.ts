@@ -7,6 +7,6 @@ export const MARQUEE_ITEMS = [
 	"Bill splitting",
 	"Monthly reports",
 	"WhatsApp-native",
-	"Nigerian context",
+	"No configuration",
 	"No download",
 ] as const;

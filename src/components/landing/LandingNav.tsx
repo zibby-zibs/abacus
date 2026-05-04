@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { LandingFooterLogo } from "./LandingFooterLogo";
 
 /* ── SVG icons ─────────────────────────────────────────────── */
 
@@ -289,7 +290,7 @@ export function LandingNav() {
 				href="/"
 				className="flex min-w-0 shrink cursor-pointer items-center gap-2 text-forest-900 sm:gap-2.5 dark:text-offwhite"
 			>
-				<Image src="/logo.svg" alt="Abacus" width={150} height={100} />
+				<LandingFooterLogo />
 			</Link>
 			<div className="flex min-w-0 shrink items-center justify-end gap-2 sm:gap-3 md:gap-4">
 				<ThemePopover />

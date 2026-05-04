@@ -1,10 +1,10 @@
-import Image from "next/image";
+import { LandingFooterLogo } from "@/components/landing/LandingFooterLogo";
 
 export function LandingFooter() {
 	return (
 		<footer className="flex flex-wrap items-center justify-between gap-5 border-t border-neutral-300/80 px-[clamp(1.25rem,4vw,3.25rem)] py-10 dark:border-white/10">
 			<div className="flex items-center gap-2.5">
-				<Image src="/logo-dark.svg" alt="Abacus" width={150} height={100} />
+				<LandingFooterLogo />
 			</div>
 			<div className="flex gap-7">
 				<a
