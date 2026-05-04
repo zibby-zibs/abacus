@@ -102,7 +102,44 @@ const themeOptions: {
   { value: "system", label: "System", icon: MonitorIcon },
 ];
 
-function ThemeToggle() {
+/* ── Desktop inline pill (≥ sm) ─────────────────────────────── */
+
+function ThemeInlinePill() {
+  const { mode, setMode } = useLandingTheme();
+  return (
+    <div
+      className="hidden items-center gap-0.5 rounded-full border border-neutral-300/80 bg-white/80 p-0.5 sm:flex dark:border-white/10 dark:bg-white/5"
+      role="group"
+      aria-label="Color theme"
+    >
+      {(
+        [
+          ["light", "Light"],
+          ["system", "Auto"],
+          ["dark", "Dark"],
+        ] as const
+      ).map(([value, label]) => (
+        <button
+          key={value}
+          type="button"
+          onClick={() => setMode(value)}
+          className={cn(
+            "rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-wide transition-colors",
+            mode === value
+              ? "bg-forest-800 text-offwhite dark:bg-gold-500 dark:text-forest-900"
+              : "text-neutral-600 hover:text-forest-900 dark:text-foreground-muted dark:hover:text-foreground"
+          )}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/* ── Mobile popover (< sm) ─────────────────────────────────── */
+
+function ThemePopover() {
   const { mode, resolved, setMode } = useLandingTheme();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -141,7 +178,7 @@ function ThemeToggle() {
   );
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative sm:hidden">
       {/* trigger button */}
       <button
         type="button"
@@ -254,7 +291,8 @@ export function LandingNav() {
         <AbacusLogoInner variant="nav" />
       </Link>
       <div className="flex min-w-0 shrink items-center justify-end gap-2 sm:gap-3 md:gap-4">
-        <ThemeToggle />
+        <ThemePopover />
+        <ThemeInlinePill />
         <a
           href={WHATSAPP_URL}
           target="_blank"
