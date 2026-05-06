@@ -14,7 +14,7 @@ const sectionLabel =
 	"mb-[18px] flex items-center gap-2.5 text-[9px] font-semibold tracking-[0.18em] text-gold-700/55 uppercase before:block before:h-px before:w-5 before:bg-gold-600/35 dark:text-gold-500/45 dark:before:bg-gold-500/35";
 
 const freemiumRows: [string, string][] = [
-	["Monthly transaction limit", "30 transactions"],
+	["Monthly limit", "50 actions"],
 	["Basic categories", "Food, Transport, Shopping, Bills"],
 	["Basic queries", "“How much did I spend today?”"],
 	["WhatsApp replies", "Standard speed (no priority)"],
@@ -23,7 +23,7 @@ const freemiumRows: [string, string][] = [
 ];
 
 const lightGets: [string, string][] = [
-	["Monthly transaction limit", "150 transactions"],
+	["Monthly limit", "150 actions"],
 	["Spending reports (category, merchant)", "Visible value every month"],
 	["Budget tracking (set & monitor)", "Behavioural hook"],
 	["Export to CSV", "Practical utility"],
