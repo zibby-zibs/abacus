@@ -61,7 +61,7 @@ export function HeroSection() {
 								className="inline-flex w-fit items-center justify-center gap-2.5 rounded-sm bg-gold-500 px-7 py-3.5 text-[15px] font-bold text-primary-fg transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#ffd84a] hover:shadow-[0_16px_40px_rgba(245,200,66,0.25)] sm:px-9 sm:py-[18px] dark:text-forest-900"
 							>
 								<SendIcon size={18} className="shrink-0" />
-								Get early access
+								Start Tracking
 							</a>
 							<a
 								href="#how"
