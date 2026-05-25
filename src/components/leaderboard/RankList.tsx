@@ -181,14 +181,10 @@ function RankRow({
 					<div
 						className={cn(
 							"h-full rounded-full bg-gradient-to-r",
-							tierKey === "Mythic" &&
-								"from-fuchsia-400 via-rose-400 to-gold-300",
-							tierKey === "Diamond" && "from-sky-400 via-cyan-300 to-gold-200",
-							tierKey === "Platinum" &&
-								"from-cyan-300 via-teal-300 to-emerald-300",
-							tierKey === "Gold" && "from-gold-500 via-gold-300 to-gold-100",
-							tierKey === "Silver" && "from-slate-400 to-slate-200",
-							tierKey === "Bronze" && "from-amber-700 to-amber-400",
+							tierKey === "Abakian" && "from-fuchsia-400 via-rose-400 to-gold-300",
+							tierKey === "The Aware" && "from-gold-500 via-gold-300 to-amber-200",
+							tierKey === "Tracker" && "from-orange-500 via-amber-400 to-orange-300",
+							tierKey === "Seedling" && "from-emerald-500 to-emerald-300",
 						)}
 						style={{ width: `${pct}%` }}
 					/>
