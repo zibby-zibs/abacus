@@ -39,19 +39,28 @@ export type Season = {
 	id: string;
 	name: string;
 	tagline: string;
-	endsIn: string;
 	totalPlayers: number;
 	totalXp: number;
 };
 
 export const SEASON: Season = {
-	id: "founding",
-	name: "Founding Week",
+	id: "awakening",
+	name: "Awakening Week",
 	tagline: "Consistency is the flex.",
-	endsIn: "6d",
 	totalPlayers: 28419,
 	totalXp: 4_812_904,
 };
+
+/**
+ * Days remaining in the current week.
+ * Week runs Sunday → Saturday. Resets Monday.
+ * Sunday = 7d (just started), Saturday = 1d (last day).
+ */
+export function getWeekEndsIn(): string {
+	const day = new Date().getDay(); // 0=Sun … 6=Sat
+	const days = (7 - day) % 7 || 7;
+	return `${days}d`;
+}
 
 export const TIER_STYLES: Record<
 	Tier,

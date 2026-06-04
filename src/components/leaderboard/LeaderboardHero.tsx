@@ -7,7 +7,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { LeaderboardResponse, LeaderboardSort } from "@/types/admin";
 import { FloatingShapes } from "./FloatingShapes";
-import { SEASON, formatCount } from "./mockData";
+import { SEASON, formatCount, getWeekEndsIn } from "./mockData";
 import { SORT_LABEL } from "./transform";
 
 export function LeaderboardHero({
@@ -71,7 +71,7 @@ export function LeaderboardHero({
 							label="Top Streak"
 							value={topStreak ? `${topStreak}d` : "—"}
 						/>
-						<Stat label="Resets In" value={SEASON.endsIn} />
+						<Stat label="Resets In" value={getWeekEndsIn()} />
 					</dl>
 				</div>
 

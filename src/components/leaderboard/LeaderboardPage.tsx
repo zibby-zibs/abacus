@@ -10,6 +10,7 @@ import { LeaderboardNav } from "./LeaderboardNav";
 import { Podium } from "./Podium";
 import { RankList } from "./RankList";
 import { sortValue } from "./transform";
+import { getWeekEndsIn } from "./mockData";
 import "./leaderboard.css";
 
 const PAGE_SIZE = 50;
@@ -118,7 +119,7 @@ function LeaderboardPageInner() {
 							Consistency is the flex.
 						</p>
 						<p className="mt-2 text-[11px] font-medium uppercase tracking-[0.18em] text-foreground-subtle">
-							Founding Week · May 24 – May 31 · resets in 6 days
+							Founding Week · resets in {getWeekEndsIn()}
 						</p>
 					</footer>
 				</main>
