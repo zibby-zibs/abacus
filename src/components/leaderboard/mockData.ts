@@ -44,8 +44,8 @@ export type Season = {
 };
 
 export const SEASON: Season = {
-	id: "awakening",
-	name: "Awakening Week",
+	id: "eyes-open",
+	name: "Eyes Open",
 	tagline: "Consistency is the flex.",
 	totalPlayers: 28419,
 	totalXp: 4_812_904,

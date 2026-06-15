@@ -1,3 +1,4 @@
+import { AiAdvisorSection } from "@/components/landing/AiAdvisorSection";
 import { ChatDemoSection } from "@/components/landing/ChatDemoSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { FinalCtaSection } from "@/components/landing/FinalCtaSection";
@@ -26,6 +27,7 @@ export function LandingPage() {
         <HowItWorksSection />
         <FeaturesSection />
         <ChatDemoSection />
+        <AiAdvisorSection />
         <NumbersSection />
         <PricingSection />
         <FinalCtaSection />

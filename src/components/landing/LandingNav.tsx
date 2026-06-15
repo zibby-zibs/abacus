@@ -295,6 +295,12 @@ export function LandingNav() {
 			<div className="flex min-w-0 shrink items-center justify-end gap-2 sm:gap-3 md:gap-4">
 				<ThemePopover />
 				<ThemeInlinePill />
+				<Link
+					href="/leaderboard"
+					className="hidden items-center gap-1.5 rounded-full border border-neutral-300/60 bg-white/60 px-3 py-2 text-[12px] font-semibold text-neutral-700 transition-colors hover:border-gold-500/40 hover:bg-gold-500/8 hover:text-forest-900 sm:flex dark:border-white/10 dark:bg-white/5 dark:text-foreground-muted dark:hover:border-gold-500/30 dark:hover:text-gold-400"
+				>
+					🏆 Leaderboard
+				</Link>
 				<a
 					href={WHATSAPP_URL}
 					target="_blank"
