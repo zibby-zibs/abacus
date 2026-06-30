@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import type { VerifyResult, WrappedStats, WrappedStatus } from "@/types/wrapped";
+import type {
+	VerifyResult,
+	WrappedStats,
+	WrappedStatus,
+} from "@/types/wrapped";
 import { WrappedPage } from "@/components/wrapped/WrappedPage";
 import styles from "./wrapped.module.css";
 
@@ -61,6 +65,7 @@ export function WrappedGate({ token }: { token: string }) {
 			.then((res) => res.json())
 			.then((data: WrappedStatus) => {
 				if (cancelled) return;
+				console.log({ data });
 				if (!data.valid) setPhase("expired");
 				else if (data.locked) setPhase("locked");
 				else setPhase("verify");
@@ -168,7 +173,11 @@ export function WrappedGate({ token }: { token: string }) {
 					className={styles.gateInput}
 					required
 				/>
-				<button type="submit" className={styles.gateButton} disabled={submitting}>
+				<button
+					type="submit"
+					className={styles.gateButton}
+					disabled={submitting}
+				>
 					{submitting ? "Checking…" : "Unlock my Wrapped"}
 				</button>
 			</form>

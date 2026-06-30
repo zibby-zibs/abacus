@@ -10,6 +10,7 @@ import {
 	type ComponentType,
 	type CSSProperties,
 	type PointerEvent as ReactPointerEvent,
+	type RefObject,
 } from "react";
 import type {
 	WrappedCategory,
@@ -23,6 +24,21 @@ const CARD_MS = 6200;
 /** Lets CSS custom properties (--d, --w, --h) through inline style. */
 function vars(v: Record<string, string | number>): CSSProperties {
 	return v as unknown as CSSProperties;
+}
+
+const CANVAS_W = 1080;
+const CANVAS_H = 1920;
+
+/**
+ * Fluid px value: scales with the smaller of viewport width/height (matching
+ * the original 1080×1920 reference design's proportions on any screen),
+ * capped at `px` so it never exceeds the reference design size.
+ */
+function fl(px: number, minFactor = 0.42): string {
+	const min = +(px * minFactor).toFixed(1);
+	const idealVw = +((px / CANVAS_W) * 100).toFixed(3);
+	const idealDvh = +((px / CANVAS_H) * 100).toFixed(3);
+	return `clamp(${min}px, min(${idealVw}vw, ${idealDvh}dvh), ${px}px)`;
 }
 
 /** Counts up to `target` once on mount — each card mounts exactly when it becomes active. */
@@ -202,7 +218,11 @@ function CoverContent() {
 			<div className={styles.cvYour} data-r style={vars({ "--d": 300 })}>
 				Your June,
 			</div>
-			<div className={styles.cvWrapped} data-r="scale" style={vars({ "--d": 520 })}>
+			<div
+				className={styles.cvWrapped}
+				data-r="scale"
+				style={vars({ "--d": 520 })}
+			>
 				Wrapped
 			</div>
 			<div className={styles.cvTap} data-r="fade" style={vars({ "--d": 1100 })}>
@@ -219,14 +239,23 @@ function OpenContent() {
 			<div className={styles.kicker} data-r style={vars({ "--d": 60 })}>
 				a quiet month, mostly
 			</div>
-			<p className={styles.lede} data-r style={vars({ "--d": 240, marginTop: 36 })}>
+			<p
+				className={styles.lede}
+				data-r
+				style={vars({ "--d": 240, marginTop: fl(36) })}
+			>
 				You and Abakus spent
 				<br />a lot of time together.
 			</p>
 			<p
 				className={styles.lede}
 				data-r
-				style={vars({ "--d": 620, marginTop: 40, opacity: 0.6, fontSize: 64 })}
+				style={vars({
+					"--d": 620,
+					marginTop: fl(40),
+					opacity: 0.6,
+					fontSize: fl(64),
+				})}
 			>
 				Here&apos;s what we <em>noticed.</em>
 			</p>
@@ -234,8 +263,14 @@ function OpenContent() {
 	);
 }
 
-function TotalContent() {
-	const display = useCountUp(847200, 1700);
+function TotalContent({
+	totalTracked,
+	transactionCount,
+}: {
+	totalTracked: number;
+	transactionCount: number;
+}) {
+	const display = useCountUp(totalTracked, 1700);
 	return (
 		<>
 			<Glow x={50} y={44} color="rgba(240,180,41,0.16)" />
@@ -246,7 +281,7 @@ function TotalContent() {
 			<div
 				className={styles.huge}
 				data-r="scale"
-				style={vars({ "--d": 240, marginTop: 20 })}
+				style={vars({ "--d": 240, marginTop: fl(20) })}
 			>
 				<span className={styles.naira}>₦</span>
 				<span className={styles.mono}>{display}</span>
@@ -254,9 +289,12 @@ function TotalContent() {
 			<p
 				className={styles.footline}
 				data-r
-				style={vars({ "--d": 900, marginTop: 46 })}
+				style={vars({ "--d": 900, marginTop: fl(46) })}
 			>
-				across <span className={cn(styles.accent, styles.mono)}>142</span>{" "}
+				across{" "}
+				<span className={cn(styles.accent, styles.mono)}>
+					{transactionCount.toLocaleString("en-US")}
+				</span>{" "}
 				transactions —
 				<br />
 				every single one, logged by you.
@@ -265,13 +303,13 @@ function TotalContent() {
 	);
 }
 
-function OpensContent() {
-	const display = useCountUp(196, 1500);
+function OpensContent({ appOpens }: { appOpens: number }) {
+	const display = useCountUp(appOpens, 1500);
 	return (
 		<>
 			<div className={styles.grain} aria-hidden />
 			<div className={styles.kicker} data-r style={vars({ "--d": 60 })}>
-				you opened the app
+				you spoke with Abakus
 			</div>
 			<div className={styles.huge} data-r="scale" style={vars({ "--d": 240 })}>
 				{display}
@@ -279,25 +317,23 @@ function OpensContent() {
 			<p
 				className={styles.footline}
 				data-r
-				style={vars({ "--d": 820, marginTop: 30 })}
+				style={vars({ "--d": 820, marginTop: fl(30) })}
 			>
-				times. That&apos;s about{" "}
-				<span className={styles.accent}>once every five waking hours.</span>
-				<br />
-				We&apos;re flattered, honestly.
+				times. We&apos;re flattered, honestly.
 			</p>
 		</>
 	);
 }
 
 function RankContent({ categories }: { categories: WrappedCategory[] }) {
+	const top = categories.find((c) => c.top) ?? categories[0];
 	return (
 		<>
 			<div className={styles.grain} aria-hidden />
 			<div className={styles.kicker} data-r style={vars({ "--d": 60 })}>
 				where it all went
 			</div>
-			<div style={{ marginTop: 44 }}>
+			<div style={{ marginTop: fl(44) }}>
 				{categories.map((c, i) => {
 					const d = 200 + i * 160;
 					return (
@@ -324,9 +360,9 @@ function RankContent({ categories }: { categories: WrappedCategory[] }) {
 			<p
 				className={styles.footline}
 				data-r
-				style={vars({ "--d": 980, marginTop: 42 })}
+				style={vars({ "--d": 980, marginTop: fl(42) })}
 			>
-				Food.{" "}
+				{top?.name}.{" "}
 				<span
 					className={styles.accent}
 					style={{ fontStyle: "italic", fontFamily: "var(--font-display)" }}
@@ -338,8 +374,8 @@ function RankContent({ categories }: { categories: WrappedCategory[] }) {
 	);
 }
 
-function BigContent() {
-	const display = useCountUp(210000, 1600);
+function BigContent({ biggestTransaction }: { biggestTransaction: number }) {
+	const display = useCountUp(biggestTransaction, 1600);
 	return (
 		<>
 			<Glow x={50} y={44} color="rgba(240,180,41,0.13)" />
@@ -350,7 +386,7 @@ function BigContent() {
 			<div
 				className={styles.huge}
 				data-r="scale"
-				style={vars({ "--d": 240, marginTop: 18 })}
+				style={vars({ "--d": 240, marginTop: fl(18) })}
 			>
 				<span className={styles.naira}>₦</span>
 				{display}
@@ -358,7 +394,7 @@ function BigContent() {
 			<p
 				className={styles.footline}
 				data-r
-				style={vars({ "--d": 880, marginTop: 46 })}
+				style={vars({ "--d": 880, marginTop: fl(46) })}
 			>
 				One transaction. One tap.
 				<br />
@@ -367,7 +403,7 @@ function BigContent() {
 					style={{
 						fontStyle: "italic",
 						fontFamily: "var(--font-display)",
-						fontSize: 42,
+						fontSize: fl(42),
 					}}
 				>
 					No questions asked.
@@ -377,7 +413,178 @@ function BigContent() {
 	);
 }
 
+// Spec: week is always 7 entries, Monday first through Sunday last.
+const DAY_NAMES = [
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday",
+	"Sunday",
+];
+
+/* ── Share ─────────────────────────────────────────────────────── */
+
+const SHARE_URL = "https://useabakus.app";
+
+function getCaption(cardIdx: number, stats: WrappedStats): string {
+	const tag = `Track yours → ${SHARE_URL}`;
+	switch (cardIdx) {
+		case 2:
+			return `₦${stats.totalTracked.toLocaleString("en-US")} tracked this month. ${stats.transactionCount} transactions, every one logged.\n\n${tag}`;
+		case 3:
+			return `I checked Abakus ${stats.appOpens} times this month 😂 Serious about the money.\n\n${tag}`;
+		case 4: {
+			const top = stats.categories.find((c) => c.top) ?? stats.categories[0];
+			return `My top spending category this month? ${top?.name ?? "Spending"} 😅\n\n${tag}`;
+		}
+		case 5:
+			return `₦${stats.biggestTransaction.toLocaleString("en-US")} in one move this month. No hesitation.\n\n${tag}`;
+		case 6: {
+			const peakIdx = stats.week.findIndex((d) => d.peak);
+			const day = DAY_NAMES[peakIdx] ?? "the weekend";
+			return `Apparently I'm a ${day} spender 📅\n\n${tag}`;
+		}
+		case 7:
+			return `${stats.streakOn} day streak this month 🔥 Most people quit by day three.\n\n${tag}`;
+		default:
+			return `My monthly spending, wrapped. 📊\n\n${tag}`;
+	}
+}
+
+type ShareOutcome = "shared" | "downloaded";
+
+async function shareCard(
+	captureEl: HTMLDivElement,
+	caption: string,
+): Promise<ShareOutcome> {
+	const { toPng } = await import("html-to-image");
+
+	const pixelRatio = Math.min(2, window.devicePixelRatio || 1);
+	const dataUrl = await toPng(captureEl, {
+		pixelRatio,
+		cacheBust: true,
+		skipFonts: true,
+		// Animated <canvas> elements taint the capture via canvas.toDataURL();
+		// skip them — the card background/glow still shows via CSS.
+		filter: (node) => (node as Element).nodeName !== "CANVAS",
+	});
+
+	// Try native file share (works on iOS/Android; desktop Chrome may also support it).
+	if (typeof navigator.canShare === "function") {
+		try {
+			const blob = await (await fetch(dataUrl)).blob();
+			const file = new File([blob], "abakus-wrapped.png", {
+				type: "image/png",
+			});
+			if (navigator.canShare({ files: [file] })) {
+				await navigator.share({ files: [file], text: caption });
+				return "shared";
+			}
+		} catch (err) {
+			if ((err as Error)?.name === "AbortError") throw err;
+			console.error("[wrapped/share] native share failed, falling back:", err);
+		}
+	}
+
+	// Guaranteed fallback: trigger a download.
+	const a = Object.assign(document.createElement("a"), {
+		href: dataUrl,
+		download: "abakus-wrapped.png",
+	});
+	document.body.appendChild(a);
+	a.click();
+	a.remove();
+	return "downloaded";
+}
+
+type ShareStatus = "idle" | "busy" | "shared" | "downloaded" | "error";
+
+const SHARE_LABELS: Record<ShareStatus, string> = {
+	idle: "Share",
+	busy: "Preparing…",
+	shared: "Shared ✓",
+	downloaded: "Saved ✓",
+	error: "Couldn't share — retry",
+};
+
+function ShareButton({
+	scalerRef,
+	cardIdx,
+	stats,
+	inkDark,
+}: {
+	scalerRef: RefObject<HTMLDivElement | null>;
+	cardIdx: number;
+	stats: WrappedStats;
+	inkDark: boolean;
+}) {
+	const [status, setStatus] = useState<ShareStatus>("idle");
+
+	async function handleShare(e: React.MouseEvent) {
+		e.stopPropagation();
+		const el = scalerRef.current;
+		if (!el || status === "busy") return;
+		setStatus("busy");
+		try {
+			const outcome = await shareCard(el, getCaption(cardIdx, stats));
+			setStatus(outcome);
+		} catch (err) {
+			if ((err as Error)?.name === "AbortError") {
+				setStatus("idle");
+				return;
+			}
+			console.error("[wrapped/share] failed:", err);
+			setStatus("error");
+		} finally {
+			setTimeout(() => setStatus("idle"), 2500);
+		}
+	}
+
+	return (
+		<button
+			type="button"
+			className={cn(
+				styles.shareCardBtn,
+				inkDark && styles.shareCardBtnDark,
+				status === "error" && styles.shareCardBtnError,
+			)}
+			disabled={status === "busy"}
+			aria-label="Share this card"
+			onPointerDown={(e) => e.stopPropagation()}
+			onPointerUp={(e) => e.stopPropagation()}
+			onClick={handleShare}
+		>
+			{status === "busy" ? (
+				<span className={styles.shareBtnSpinner} />
+			) : (
+				<svg
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					strokeWidth={2}
+					strokeLinecap="round"
+					strokeLinejoin="round"
+					aria-hidden
+				>
+					<circle cx={18} cy={5} r={3} />
+					<circle cx={6} cy={12} r={3} />
+					<circle cx={18} cy={19} r={3} />
+					<line x1={8.59} y1={13.51} x2={15.42} y2={17.49} />
+					<line x1={15.41} y1={6.51} x2={8.59} y2={10.49} />
+				</svg>
+			)}
+			<span>{SHARE_LABELS[status]}</span>
+		</button>
+	);
+}
+
 function RhythmContent({ week }: { week: WrappedWeekDay[] }) {
+	const peakIndex = week.findIndex((d) => d.peak);
+	const peakDay = peakIndex >= 0 ? DAY_NAMES[peakIndex] : null;
 	return (
 		<>
 			<div className={styles.grain} aria-hidden />
@@ -387,9 +594,15 @@ function RhythmContent({ week }: { week: WrappedWeekDay[] }) {
 			<p
 				className={styles.lede}
 				data-r
-				style={vars({ "--d": 200, marginTop: 18, fontSize: 62 })}
+				style={vars({ "--d": 200, marginTop: fl(18), fontSize: fl(62) })}
 			>
-				You&apos;re a <em>Sunday</em> spender.
+				{peakDay ? (
+					<>
+						You&apos;re a <em>{peakDay}</em> spender.
+					</>
+				) : (
+					"Pretty evenly spread across the week."
+				)}
 			</p>
 			<div className={styles.week}>
 				{week.map((d, i) => (
@@ -404,19 +617,21 @@ function RhythmContent({ week }: { week: WrappedWeekDay[] }) {
 					</div>
 				))}
 			</div>
-			<p
-				className={styles.footline}
-				data-r
-				style={vars({ "--d": 1000, marginTop: 40 })}
-			>
-				188 transactions on Sundays. The day of rest,{" "}
-				<span
-					className={styles.accent}
-					style={{ fontStyle: "italic", fontFamily: "var(--font-display)" }}
+			{peakDay && (
+				<p
+					className={styles.footline}
+					data-r
+					style={vars({ "--d": 1000, marginTop: fl(40) })}
 				>
-					apparently.
-				</span>
-			</p>
+					Most of it lands on{" "}
+					<span
+						className={styles.accent}
+						style={{ fontStyle: "italic", fontFamily: "var(--font-display)" }}
+					>
+						{peakDay}s.
+					</span>
+				</p>
+			)}
 		</>
 	);
 }
@@ -432,7 +647,10 @@ function StreakContent({ total, on }: { total: number; on: number }) {
 				{on}
 				<span style={{ fontWeight: 300, fontSize: "0.28em" }}> days</span>
 			</div>
-			<div className={styles.streakDots} style={{ margin: "36px 0 44px" }}>
+			<div
+				className={styles.streakDots}
+				style={{ margin: `${fl(36)} 0 ${fl(44)}` }}
+			>
 				{Array.from({ length: total }, (_, i) => (
 					<i
 						key={i}
@@ -442,14 +660,7 @@ function StreakContent({ total, on }: { total: number; on: number }) {
 				))}
 			</div>
 			<p className={styles.footline} data-r style={vars({ "--d": 1100 })}>
-				Top{" "}
-				<span
-					className={styles.accent}
-					style={{ fontStyle: "italic", fontFamily: "var(--font-display)" }}
-				>
-					5%
-				</span>{" "}
-				of trackers. Most people quit by day three.
+				Most people quit by day three.
 			</p>
 		</>
 	);
@@ -470,14 +681,41 @@ function TypeContent() {
 			</div>
 			<p className={styles.atDesc} data-r style={vars({ "--d": 1000 })}>
 				You don&apos;t announce your money. You just — <em>know</em> where it
-				goes. 959 small moments of clarity, no fuss.
+				goes, no fuss.
 			</p>
 		</>
 	);
 }
 
-function FinaleContent() {
-	const [shareLabel, setShareLabel] = useState("Share your Wrapped →");
+function FinaleContent({
+	scalerRef,
+	stats,
+}: {
+	scalerRef: RefObject<HTMLDivElement | null>;
+	stats: WrappedStats;
+}) {
+	const [status, setStatus] = useState<ShareStatus>("idle");
+
+	async function handleShare(e: React.MouseEvent) {
+		e.stopPropagation();
+		const el = scalerRef.current;
+		if (!el || status === "busy") return;
+		setStatus("busy");
+		try {
+			const outcome = await shareCard(el, getCaption(-1, stats));
+			setStatus(outcome);
+		} catch (err) {
+			if ((err as Error)?.name === "AbortError") {
+				setStatus("idle");
+				return;
+			}
+			console.error("[wrapped/share] failed:", err);
+			setStatus("error");
+		} finally {
+			setTimeout(() => setStatus("idle"), 2500);
+		}
+	}
+
 	return (
 		<>
 			<ConstellationCanvas />
@@ -488,7 +726,11 @@ function FinaleContent() {
 			<p className={styles.fnSee} data-r="fade" style={vars({ "--d": 520 })}>
 				See you in July.
 			</p>
-			<div className={styles.fnMark} data-r="scale" style={vars({ "--d": 760 })}>
+			<div
+				className={styles.fnMark}
+				data-r="scale"
+				style={vars({ "--d": 760 })}
+			>
 				<AbakusMark size={90} />
 			</div>
 			<div className={styles.fnWord} data-r="fade" style={vars({ "--d": 980 })}>
@@ -499,13 +741,10 @@ function FinaleContent() {
 				className={styles.shareBtn}
 				data-r="fade"
 				style={vars({ "--d": 1240 })}
-				onClick={(e) => {
-					e.stopPropagation();
-					setShareLabel("Saved to your story ✓");
-					setTimeout(() => setShareLabel("Share your Wrapped →"), 1800);
-				}}
+				disabled={status === "busy"}
+				onClick={handleShare}
 			>
-				{shareLabel}
+				{status === "idle" ? "Share your Wrapped →" : SHARE_LABELS[status]}
 			</button>
 		</>
 	);
@@ -584,6 +823,7 @@ const N = CARDS.length;
 export function WrappedPage({ stats }: { stats: WrappedStats }) {
 	const [idx, setIdx] = useState(0);
 	const [paused, setPaused] = useState(false);
+	const scalerRef = useRef<HTMLDivElement>(null);
 	const holdRef = useRef<{
 		timer: ReturnType<typeof setTimeout> | null;
 		didHold: boolean;
@@ -593,14 +833,19 @@ export function WrappedPage({ stats }: { stats: WrappedStats }) {
 		() => [
 			CoverContent,
 			OpenContent,
-			TotalContent,
-			OpensContent,
+			() => (
+				<TotalContent
+					totalTracked={stats.totalTracked}
+					transactionCount={stats.transactionCount}
+				/>
+			),
+			() => <OpensContent appOpens={stats.appOpens} />,
 			() => <RankContent categories={stats.categories} />,
-			BigContent,
+			() => <BigContent biggestTransaction={stats.biggestTransaction} />,
 			() => <RhythmContent week={stats.week} />,
 			() => <StreakContent total={stats.streakTotal} on={stats.streakOn} />,
 			TypeContent,
-			FinaleContent,
+			() => <FinaleContent scalerRef={scalerRef} stats={stats} />,
 		],
 		[stats],
 	);
@@ -653,7 +898,10 @@ export function WrappedPage({ stats }: { stats: WrappedStats }) {
 			onPointerDown={handlePointerDown}
 			onPointerUp={handlePointerUp}
 		>
-			<div className={styles.scaler}>
+			{/* Capture target for sharing: a normal-flow box, not the `position:
+			    fixed` root — html-to-image can't reliably rasterize fixed-position
+			    elements. */}
+			<div ref={scalerRef} className={styles.stage}>
 				<Segments
 					count={N}
 					idx={idx}
@@ -668,10 +916,13 @@ export function WrappedPage({ stats }: { stats: WrappedStats }) {
 				>
 					<Content />
 				</section>
-				<div className={styles.navHint}>
-					tap right to continue · hold to pause
 				</div>
-			</div>
+			<ShareButton
+				scalerRef={scalerRef}
+				cardIdx={idx}
+				stats={stats}
+				inkDark={!!card.inkDark}
+			/>
 		</div>
 	);
 }

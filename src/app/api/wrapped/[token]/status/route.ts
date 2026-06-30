@@ -1,13 +1,15 @@
 /**
- * Required env vars (server-side only):
- *   WRAPPED_BASE_URL — base URL for the Wrapped backend (defaults to https://www.useabakus.com/wrapped)
+ * Env vars (server-side only):
+ *   WRAPPED_BASE_URL — base URL for the Wrapped backend.
+ *     Defaults to `${NEXT_PUBLIC_API_BASE_URL}/wrapped` — the same backend
+ *     the rest of the app talks to (see src/lib/api.ts), not the marketing site.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
 const WRAPPED_BASE_URL =
-	process.env.WRAPPED_BASE_URL ?? "https://www.useabakus.com/wrapped";
+	process.env.WRAPPED_BASE_URL ?? `${process.env.NEXT_PUBLIC_API_BASE_URL}/wrapped`;
 
 export async function GET(
 	_req: NextRequest,
@@ -26,6 +28,7 @@ export async function GET(
 				status: err.response.status,
 			});
 		}
+		console.error("[wrapped/status] failed to reach backend:", err);
 		return NextResponse.json(
 			{ valid: false, locked: false },
 			{ status: 502 },

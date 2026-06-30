@@ -19,6 +19,10 @@ export type WrappedStats = {
 	week: WrappedWeekDay[];
 	streakTotal: number;
 	streakOn: number;
+	totalTracked: number;
+	transactionCount: number;
+	appOpens: number;
+	biggestTransaction: number;
 };
 
 export type VerifyResult =
