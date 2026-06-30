@@ -367,7 +367,7 @@ function RankContent({ categories }: { categories: WrappedCategory[] }) {
 					className={styles.accent}
 					style={{ fontStyle: "italic", fontFamily: "var(--font-display)" }}
 				>
-					We are a people.
+					'Now you know'
 				</span>
 			</p>
 		</>
@@ -426,7 +426,7 @@ const DAY_NAMES = [
 
 /* ── Share ─────────────────────────────────────────────────────── */
 
-const SHARE_URL = "https://useabakus.app";
+const SHARE_URL = "https://useabakus.com";
 
 function getCaption(cardIdx: number, stats: WrappedStats): string {
 	const tag = `Track yours → ${SHARE_URL}`;
@@ -898,17 +898,11 @@ export function WrappedPage({ stats }: { stats: WrappedStats }) {
 			onPointerDown={handlePointerDown}
 			onPointerUp={handlePointerUp}
 		>
-			{/* Capture target for sharing: a normal-flow box, not the `position:
-			    fixed` root — html-to-image can't reliably rasterize fixed-position
-			    elements. */}
+			{/* UI chrome — outside the capture target so they don't appear in shared images */}
+			<Segments count={N} idx={idx} paused={paused} onComplete={() => go(1)} />
+			<Brandbar />
+			{/* Capture target: normal-flow box (not position:fixed) for html-to-image */}
 			<div ref={scalerRef} className={styles.stage}>
-				<Segments
-					count={N}
-					idx={idx}
-					paused={paused}
-					onComplete={() => go(1)}
-				/>
-				<Brandbar />
 				<section
 					key={idx}
 					className={cn(styles.card, card.className)}
@@ -916,7 +910,7 @@ export function WrappedPage({ stats }: { stats: WrappedStats }) {
 				>
 					<Content />
 				</section>
-				</div>
+			</div>
 			<ShareButton
 				scalerRef={scalerRef}
 				cardIdx={idx}
