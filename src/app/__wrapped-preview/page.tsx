@@ -4,6 +4,13 @@ import { WrappedPage } from "@/components/wrapped/WrappedPage";
 import type { WrappedStats } from "@/types/wrapped";
 
 const mockStats: WrappedStats = {
+	personality: {
+		key: "aware_one",
+		name: "The Aware One",
+		emoji: "👁️",
+		tagline: "You don't just spend — you see every naira move.",
+		body: "Most people look away. You look closer.\nYou track, you notice, you adjust.",
+	},
 	totalTracked: 482300,
 	transactionCount: 214,
 	appOpens: 312,

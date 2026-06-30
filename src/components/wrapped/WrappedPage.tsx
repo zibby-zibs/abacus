@@ -14,6 +14,7 @@ import {
 } from "react";
 import type {
 	WrappedCategory,
+	WrappedPersonality,
 	WrappedStats,
 	WrappedWeekDay,
 } from "@/types/wrapped";
@@ -345,7 +346,9 @@ function RankContent({ categories }: { categories: WrappedCategory[] }) {
 							>
 								<span className={cn(styles.rPos, styles.mono)}>{c.pos}</span>
 								<span className={styles.rName}>{c.name}</span>
-								<span className={styles.rVal}>{c.val}</span>
+								<span className={styles.rVal} data-share-hide>
+									{c.val}
+								</span>
 							</div>
 							<div className={styles.rBar} style={vars({ "--d": d })}>
 								<i
@@ -367,7 +370,7 @@ function RankContent({ categories }: { categories: WrappedCategory[] }) {
 					className={styles.accent}
 					style={{ fontStyle: "italic", fontFamily: "var(--font-display)" }}
 				>
-					'Now you know'
+					Knowledge is what you know that gives you an edge over others.
 				</span>
 			</p>
 		</>
@@ -468,7 +471,10 @@ async function shareCard(
 		skipFonts: true,
 		// Animated <canvas> elements taint the capture via canvas.toDataURL();
 		// skip them — the card background/glow still shows via CSS.
-		filter: (node) => (node as Element).nodeName !== "CANVAS",
+		filter: (node) => {
+			const el = node as Element;
+			return el.nodeName !== "CANVAS" && !el.hasAttribute?.("data-share-hide");
+		},
 	});
 
 	// Try native file share (works on iOS/Android; desktop Chrome may also support it).
@@ -666,23 +672,35 @@ function StreakContent({ total, on }: { total: number; on: number }) {
 	);
 }
 
-function TypeContent() {
+function TypeContent({ personality }: { personality: WrappedPersonality }) {
+	const paragraphs = personality.body.split("\n").filter(Boolean);
 	return (
 		<>
 			<Glow x={50} y={42} color="rgba(240,180,41,0.14)" />
 			<div className={styles.grain} aria-hidden />
 			<div className={styles.atPre} data-r="fade" style={vars({ "--d": 120 })}>
-				your money personality
+				{personality.emoji} your money personality
 			</div>
 			<div className={styles.atName} data-r="blur" style={vars({ "--d": 380 })}>
-				The Quiet
-				<br />
-				Tracker
+				{personality.name}
 			</div>
-			<p className={styles.atDesc} data-r style={vars({ "--d": 1000 })}>
-				You don&apos;t announce your money. You just — <em>know</em> where it
-				goes, no fuss.
+			<p
+				className={styles.atDesc}
+				data-r
+				style={vars({ "--d": 700 })}
+			>
+				<em>{personality.tagline}</em>
 			</p>
+			{paragraphs.map((p, i) => (
+				<p
+					key={i}
+					className={styles.atDesc}
+					data-r
+					style={vars({ "--d": 900 + i * 120 })}
+				>
+					{p}
+				</p>
+			))}
 		</>
 	);
 }
@@ -844,7 +862,7 @@ export function WrappedPage({ stats }: { stats: WrappedStats }) {
 			() => <BigContent biggestTransaction={stats.biggestTransaction} />,
 			() => <RhythmContent week={stats.week} />,
 			() => <StreakContent total={stats.streakTotal} on={stats.streakOn} />,
-			TypeContent,
+			() => <TypeContent personality={stats.personality} />,
 			() => <FinaleContent scalerRef={scalerRef} stats={stats} />,
 		],
 		[stats],

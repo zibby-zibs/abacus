@@ -14,6 +14,22 @@ export type WrappedWeekDay = {
 	peak?: true;
 };
 
+export type WrappedPersonalityKey =
+	| "enjoyment_officer"
+	| "road_warrior"
+	| "phantom"
+	| "provider"
+	| "aware_one"
+	| "surge";
+
+export type WrappedPersonality = {
+	key: WrappedPersonalityKey;
+	name: string;
+	emoji: string;
+	tagline: string;
+	body: string;
+};
+
 export type WrappedStats = {
 	categories: WrappedCategory[];
 	week: WrappedWeekDay[];
@@ -23,6 +39,7 @@ export type WrappedStats = {
 	transactionCount: number;
 	appOpens: number;
 	biggestTransaction: number;
+	personality: WrappedPersonality;
 };
 
 export type VerifyResult =
